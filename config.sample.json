@@ -1,0 +1,5 @@
+{
+  "DATABASE_URI": "mongodb://127.0.0.1/mint-btc-backend",
+  "NODE_ENV": "------",
+  "PORT": 5001
+}
