@@ -3,8 +3,8 @@ import { Request, Response } from "express";
 import { Submission } from "./database/submissions";
 
 export const uploadEntry = async (req: Request, res: Response) => {
-  await Submission.create(req.body);
-  res.json({ success: false });
+  const data = await Submission.create(req.body);
+  res.json({ success: true, data });
 };
 
 export const getWinners = async (req: Request, res: Response) => {
