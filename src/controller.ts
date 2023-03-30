@@ -30,14 +30,14 @@ export const getProgress = async (req: Request, res: Response) => {
   const mintAmount = nconf.get("MINT_AMOUNT") || 0.03;
 
   const mintWallet = nconf.get("MINT_WALLET");
-  const mintWalletBalance = (await getWalletBalance(mintWallet)) / 100000000;
+  // const mintWalletBalance = (await getWalletBalance(mintWallet)) / 100000000;
 
   const totalMintAmount = nconf.get("MINT_SUPPLY_CAP") || 222;
 
-  const progress =
-    (Math.min(mintWalletBalance / mintAmount, totalMintAmount) /
-      totalMintAmount) *
-    100;
+  // const progress =
+  //   (Math.min(mintWalletBalance / mintAmount, totalMintAmount) /
+  //     totalMintAmount) *
+  //   100;
 
-  res.json({ success: true, progress, mintWallet, mintWalletBalance });
+  res.json({ success: true, progress: 100, mintWallet });
 };
