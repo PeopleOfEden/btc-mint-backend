@@ -52,6 +52,7 @@
     "express": ">=5.0.0-beta.1",
     "mongoose": "^6.8.2",
     "nconf": "^0.12.0",
+    "node-cache": "^5.1.2",
     "node-fetch": "^3.3.1"
   }
 }

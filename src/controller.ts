@@ -2,10 +2,18 @@ import nconf from "nconf";
 import axios from "axios";
 import { Request, Response } from "express";
 import { Submission } from "./database/submissions";
+import cache from "node-cache";
 
-const getWalletBalance = async (addr: string) => {
+const c = new cache();
+
+const getWalletBalance = async (addr: string): Promise<number> => {
+  // @ts-ignore
+  if (c.get("cache")) return c.get("cache");
+
   const url = "https://blockchain.info/q/addressbalance/" + addr;
-  return axios.get(url).then(async (d) => Number(await d.data));
+  const val = axios.get(url).then(async (d) => Number(await d.data));
+  c.set("cache", val, 60);
+  return val;
 };
 
 export const uploadEntry = async (req: Request, res: Response) => {
