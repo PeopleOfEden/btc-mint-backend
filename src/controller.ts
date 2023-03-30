@@ -1,6 +1,12 @@
 import nconf from "nconf";
+import axios from "axios";
 import { Request, Response } from "express";
 import { Submission } from "./database/submissions";
+
+const getWalletBalance = async (addr: string) => {
+  const url = "https://blockchain.info/q/addressbalance/" + addr;
+  return axios.get(url).then(async (d) => Number(await d.data));
+};
 
 export const uploadEntry = async (req: Request, res: Response) => {
   const data = await Submission.create(req.body);
@@ -16,7 +22,7 @@ export const getProgress = async (req: Request, res: Response) => {
   const mintAmount = nconf.get("MINT_AMOUNT") || 0.03;
 
   const mintWallet = nconf.get("MINT_WALLET");
-  const mintWalletBalance = 0; // todo add a api to check wallet balance
+  const mintWalletBalance = (await getWalletBalance(mintWallet)) / 100000000;
 
   const totalMintAmount = nconf.get("MINT_SUPPLY_CAP") || 222;
 
